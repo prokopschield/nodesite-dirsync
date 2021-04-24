@@ -1,0 +1,31 @@
+{
+	"name": "nodesite-dirsync",
+	"description": "Directory synchronization over NodeSite",
+	"version": "0.0.1",
+	"main": "lib/index.js",
+	"bin": {
+		"nodesite-dirsync": "lib/cli.js"
+	},
+	"scripts": {
+		"start": "node lib/cli",
+		"test": "npx nslibmgr test"
+	},
+	"author": "Prokop Schield",
+	"license": "GPL-3.0-or-later",
+	"devDependencies": {
+		"@types/node": ">=14"
+	},
+	"keywords": [],
+	"dependencies": {
+		"blakejs": "^1.1.0",
+		"chalk": "^4.1.0",
+		"doge-config": "^0.0.6",
+		"io.nodesite.eu": "^1.0.9",
+		"nodesite.eu": "^1.0.23",
+		"openpgp": "^5.0.0-1",
+		"ts-hound": "^1.0.5"
+	},
+	"directories": {
+		"lib": "lib"
+	}
+}
