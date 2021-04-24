@@ -27,5 +27,13 @@
 	},
 	"directories": {
 		"lib": "lib"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/prokopschield/nodesite-dirsync.git"
+	},
+	"bugs": {
+		"url": "https://github.com/prokopschield/nodesite-dirsync/issues"
+	},
+	"homepage": "https://github.com/prokopschield/nodesite-dirsync#readme"
 }

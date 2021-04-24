@@ -16,7 +16,11 @@ for (const argument of process.argv) {
 	} else switch (argument) {
 		case 'join':
 			callback = async (address: string) => {
-				initClient(address);
+				initClient(
+					(address.includes('.'))
+					? address
+					: `${address}.nodesite.eu`
+				);
 			}
 			break;
 		case 'host':

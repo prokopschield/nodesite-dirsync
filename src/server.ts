@@ -19,7 +19,7 @@ export default async function initServer () {
 
 	await cypher.ready;
 
-	const domain = `websync-${username}-${cypher.hash.substr(16, 15)}`;
+	const domain = `websync-${username}-${cypher.hash.substr(16, 15)}.nodesite.eu`;
 	terminal.write(chalk.green(chalk.green('\r\n\nOthers can join this session using\r\n')));
 	terminal.write(chalk.red(`npx nodesite-dirsync join ${domain}\r\n\n`));
 
