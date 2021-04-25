@@ -92,6 +92,12 @@ export default function manager (hook: EventEmitter) {
 		if (!fs.existsSync(mypath)) {
 			const data = (await get(message.cloud)) || (await get(message.blake));
 			if (data && data.length) {
+				const dirpath = pathutil.resolve(mypath, '..');
+				if (!fs.existsSync(dirpath)) {
+					fs.mkdirSync(dirpath, {
+						recursive: true,
+					});
+				}
 				return fs.promises.writeFile(mypath, data);
 			}
 		}
@@ -131,6 +137,12 @@ export default function manager (hook: EventEmitter) {
 		}
 		const data_new = (await get(message.cloud)) || (await get(message.blake));
 		if (!data_new) return;
+		const dirpath = pathutil.resolve(mypath, '..');
+		if (!fs.existsSync(dirpath)) {
+			fs.mkdirSync(dirpath, {
+				recursive: true,
+			});
+		}
 		await fs.promises.writeFile(mypath, data_new);
 		return true;
 	});
@@ -149,7 +161,7 @@ export default function manager (hook: EventEmitter) {
 					if (hashes) {
 						hook.emit('send', {
 							event: 'file-init',
-							path,
+							path: pathutil.relative('.', path),
 							...hashes,
 						});
 					}
