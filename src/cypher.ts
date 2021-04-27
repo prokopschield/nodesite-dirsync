@@ -48,7 +48,7 @@ class Cypher {
 			this.#_publicKeyArmored = this.#_key.toPublic().armor();
 		} else {
 			const {key, privateKeyArmored, publicKeyArmored} = await openpgp.generateKey({
-				userIds: [{ name: username }],
+				userIds: [{ name: username || 'Guest' }],
 				curve: 'p521',
 				passphrase: password
 			});
