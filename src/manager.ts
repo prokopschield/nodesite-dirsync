@@ -25,7 +25,7 @@ export default function manager (hook: EventEmitter) {
 				if (!stat.isFile()) return false;
 				hook.emit('send', {
 					event: 'file-create',
-					path: pathutil.relative('.', file),
+					path: pathutil.relative('.', file).replace(/[\\\/]+/g, '/'),
 				});
 				resolve(true);
 			} else resolve(false);
@@ -43,7 +43,7 @@ export default function manager (hook: EventEmitter) {
 				if (hashes) {
 					hook.emit('send', {
 						event: 'file-change',
-						path: pathutil.relative('.', file),
+						path: pathutil.relative('.', file).replace(/[\\\/]+/g, '/'),
 						...hashes,
 					});
 				}
@@ -161,7 +161,7 @@ export default function manager (hook: EventEmitter) {
 					if (hashes) {
 						hook.emit('send', {
 							event: 'file-init',
-							path: pathutil.relative('.', path),
+							path: pathutil.relative('.', path).replace(/[\\\/]+/g, '/'),
 							...hashes,
 						});
 					}
