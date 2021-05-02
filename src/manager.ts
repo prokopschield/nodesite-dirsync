@@ -55,7 +55,8 @@ export default function manager (hook: EventEmitter) {
 		path: unknown;
 	}) => {
 		if (typeof message.path !== 'string') return;
-		const mypath = pathutil.resolve('.', message.path);
+		const message_path = message.path.replace(/[\\\/]+/g, '/');
+		const mypath = pathutil.resolve('.', message_path);
 		if (fs.existsSync(mypath)) {
 			const data = await fs.promises.readFile(mypath);
 			if (!data.length) return;
@@ -63,7 +64,7 @@ export default function manager (hook: EventEmitter) {
 			if (blake2cloud.__has(hash)) {
 				return hook.emit('send', {
 					event: 'file-init',
-					path: message.path,
+					path: message_path,
 					blake: hash,
 					cloud: blake2cloud.__get(hash),
 				});
@@ -72,7 +73,7 @@ export default function manager (hook: EventEmitter) {
 			if (hashes) {
 				return hook.emit('send', {
 					event: 'file-init',
-					path: message.path,
+					path: message_path,
 					...hashes,
 				});
 			}
@@ -85,9 +86,10 @@ export default function manager (hook: EventEmitter) {
 		cloud: unknown;
 	}) => {
 		if (typeof message.path !== 'string') return;
+		const message_path = message.path.replace(/[\\\/]+/g, '/');
 		if (typeof message.blake !== 'string') return;
 		if (typeof message.cloud !== 'string') return;
-		const mypath = pathutil.resolve('.', message.path);
+		const mypath = pathutil.resolve('.', message_path);
 		if (!mypath.includes(pathutil.resolve('.'))) return;
 		if (!fs.existsSync(mypath)) {
 			const data = (await get(message.cloud)) || (await get(message.blake));
@@ -109,9 +111,10 @@ export default function manager (hook: EventEmitter) {
 		cloud: unknown;
 	}) => {
 		if (typeof message.path !== 'string') return;
+		const message_path = message.path.replace(/[\\\/]+/g, '/');
 		if (typeof message.blake !== 'string') return;
 		if (typeof message.cloud !== 'string') return;
-		const mypath = pathutil.resolve('.', message.path);
+		const mypath = pathutil.resolve('.', message_path);
 		if (!mypath.includes(pathutil.resolve('.'))) return;
 		if (fs.existsSync(mypath)) {
 			const stat = fs.statSync(mypath);
