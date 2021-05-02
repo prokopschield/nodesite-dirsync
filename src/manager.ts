@@ -10,6 +10,7 @@ import {
 } from './config';
 import EventEmitter from "events";
 import fs from 'fs';
+import low_usage from 'low-usage';
 import pathutil from 'path';
 import {
 	watch,
@@ -162,6 +163,7 @@ export default function manager (hook: EventEmitter) {
 				} else if (stat.isFile()) {
 					const hashes = await put(await fs.promises.readFile(path));
 					if (hashes) {
+						await low_usage.cpu;
 						hook.emit('send', {
 							event: 'file-init',
 							path: pathutil.relative('.', path).replace(/[\\\/]+/g, '/'),
